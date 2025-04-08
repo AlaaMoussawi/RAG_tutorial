@@ -1,11 +1,11 @@
 import os
 from ollama import embed
 from nltk.tokenize import sent_tokenize
-from database_connect_embeddings import get_psql_session
+from database_connect_embeddings import get_psql_session, TextEmbedding
 
-import nltk
-nltk.download("punkt")
-nltk.download("punkt_tab")
+# import nltk
+# nltk.download("punkt")
+# nltk.download("punkt_tab")
 
 def populate_vector_database(folder_path='all_articles'):
 
