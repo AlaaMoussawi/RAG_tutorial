@@ -28,6 +28,8 @@ def populate_vector_database(folder_path='all_articles'):
                 session.add(new_embedding)
             session.commit()
 
+        print("Succesfully generated embeddings for: {}".format(file_path))
+
         except Exception as e:
             print(f"Error processing {filename}: {str(e)}")
             continue
