@@ -2,14 +2,17 @@ from docling.document_converter import DocumentConverter
 # pip install accelerate
 
 
-def extract_text(source):
+def convert_doc(source):
     converter = DocumentConverter()
     result = converter.convert(source)
 
-    return result.document.export_to_markdown()
+    return result.document.export_to_dict()
 
 pptx_source = "https://scholar.harvard.edu/files/torman_personal/files/samplepptx.pptx"
-docx_source = "https://www.cte.iup.edu/cte/Resources/DOCX_TestPage.docx"
+docx_source = "https://calibre-ebook.com/downloads/demos/demo.docx"
 pdf_source = "https://pdfobject.com/pdf/sample.pdf"
 
-extract_text(pdf_source)
+result = convert_doc(docx_source)
+
+for i in result["texts"]:
+    print(i["orig"])
