@@ -12,7 +12,10 @@ sudo systemctl enable postgresql
 sudo service postgresql start
 
 sudo service postgresql status
-psql -U postgres
+#psql -U postgres
 
 sudo emacs /etc/postgresql/16/main/pg_hba.conf
-CREATE EXTENSION vector;
+
+#CREATE EXTENSION vector;
+#CREATE DATABASE text_embeddings OWNER postgres;
+#GRANT ALL PRIVILEGES ON DATABASE text_embeddings TO postgres;
