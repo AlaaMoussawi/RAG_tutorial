@@ -7,7 +7,7 @@ print(len(embeddings['embeddings']))
 response = chat(model='deepseek-r1:8b', messages=[
   {
     'role': 'user',
-    'content': 'Why is the sky blue?',
+    'content': 'Why did the chicken cross the road?',
   },
 ])
 
