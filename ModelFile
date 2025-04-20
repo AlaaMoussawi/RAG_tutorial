@@ -5,9 +5,19 @@ PARAMETER temperature 0
 
 # sets the context window size to 4096, this controls how many tokens the LLM can use as context to generate the next token
 PARAMETER num_ctx 4096
+PARAMETER seed 42
 
 # sets a custom system message to specify the behavior of the chat assistant
 SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
 
-MESSAGE user Why is the sky blue?
-MESSAGE assistant No information provided helps me understand why the sky is blue.
+
+#################################################################################################################################
+TEMPLATE """{{ if .System }}<|im_start|>system
+{{ .System }}<|im_end|>
+{{ end }}{{ if .Prompt }}<|im_start|>user
+{{ .Prompt }}<|im_end|>
+{{ end }}<|im_start|>assistant
+"""
+
+MESSAGE user <| im_start |> Why is the sky blue?
+MESSAGE assistant No information has been provided about why the sky is blue.

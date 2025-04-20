@@ -21,11 +21,11 @@ def is_unique_to_window(existing_matches, current_match):
     
     for match in existing_matches:
         if match[3] != current_match[3]:
-            continue;
+            continue
         if match[1] > current_match[1] + 5 or match[1] < current_match[1] - 5:
-            continue;
+            continue
         else:
-            return False;
+            return False
     
     return True
 
@@ -44,3 +44,5 @@ def get_needed_matches(search_results):
         matches.append(result)
 
     return matches
+
+filtered_matches = get_needed_matches(search_results)
