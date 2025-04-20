@@ -8,16 +8,24 @@ PARAMETER num_ctx 4096
 PARAMETER seed 42
 
 # sets a custom system message to specify the behavior of the chat assistant
-SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
+# SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
 
+PARAMETER stop <｜begin▁of▁sentence｜>
+PARAMETER stop <｜end▁of▁sentence｜>
+PARAMETER stop <｜User｜>
+PARAMETER stop <｜Assistant｜>
 
 #################################################################################################################################
-TEMPLATE """{{ if .System }}<|im_start|>system
-{{ .System }}<|im_end|>
-{{ end }}{{ if .Prompt }}<|im_start|>user
-{{ .Prompt }}<|im_end|>
-{{ end }}<|im_start|>assistant
+TEMPLATE """<|im_start|>system
+You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. Here is the content:
 """
 
-MESSAGE user <| im_start |> Why is the sky blue?
-MESSAGE assistant No information has been provided about why the sky is blue.
+# TEMPLATE """<|im_start|>system
+# {{ .System }}<|im_end|>
+# {{ end }}{{ if .Prompt }}<|im_start|>user
+# {{ .Prompt }}<|im_end|>
+# {{ end }}<|im_start|>assistant
+# """
+
+# MESSAGE user <| im_start |> Why is the sky blue?
+# MESSAGE assistant No information has been provided about why the sky is blue.
