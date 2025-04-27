@@ -1,17 +1,7 @@
 import sys
 from ollama import embed
+from database_connect_embeddings import get_psql_session, TextEmbedding
 from pull_db_content import search_embeddings, get_surrounding_sentences
-
-query = "Tell me about human rights in Germany."
-if len(sys.argv) > 1:
-    # raise ValueError("Please pass a query when calling the script.")
-    query = sys.argv[1]
-
-# query_embedding = embed(model="deepseek-r1:8b", input=query)["embeddings"][0]
-
-num_matches = 5
-window_size = 5
-# search_results = search_embeddings(query_embedding=query_embedding, limit=num_matches * (2*window_size + 1) )
 
 # Identify how many search results till we have 5 matches that generate non-overlapping windows.
 def is_unique_to_window(existing_matches, current_match):
@@ -52,23 +42,17 @@ def search_embeddings(query_embedding, session, limit=5):
 
 def get_surrounding_sentences(entry_ids, file_names, group_window_size, session):
 
+    # entry_ids and filen_names must be arrays!
     surrounding_sentences = []
-    if isinstance(entry_ids, list) and isinstance(file_names, list):
-        for entry_id, file_name in zip(entry_ids, file_names):
-            surrounding_sentences.append(
-                session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name)\
-                .filter(TextEmbedding.id >= entry_id - group_window_size)\
-                .filter(TextEmbedding.id <= entry_id + group_window_size)\
-                .filter(TextEmbedding.file_name == file_name).all()
-            )
-        
-        return surrounding_sentences
+    for entry_id, file_name in zip(entry_ids, file_names):
+        surrounding_sentences.append(
+            session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name)\
+            .filter(TextEmbedding.id >= entry_id - group_window_size)\
+            .filter(TextEmbedding.id <= entry_id + group_window_size)\
+            .filter(TextEmbedding.file_name == file_name).all()
+        )
     
-    else:
-        return [session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name)\
-            .filter(TextEmbedding.id >= entry_ids - group_window_size)\
-            .filter(TextEmbedding.id <= entry_ids + group_window_size)\
-            .filter(TextEmbedding.file_name == file_names).all()]
+    return surrounding_sentences
 
 
 def search_by_query(query, num_matches=5, window_size=5):
@@ -83,7 +67,17 @@ def search_by_query(query, num_matches=5, window_size=5):
 
     return get_surrounding_sentences(entry_ids=entry_ids, file_names=file_names, group_window_size=window_size, session=session)
 
-context = search_by_query(query)
 
-for i in context:
-    print(len(i))
+if __name__=="__main__":
+
+    query = "Tell me about child abuse in Germany."
+    if len(sys.argv) > 1:
+        # raise ValueError("Please pass a query when calling the script.")
+        query = sys.argv[1]
+
+    num_matches = 5
+    window_size = 5
+    context = search_by_query(query)
+
+    for i in context:
+        print(i, "\n")
