@@ -70,13 +70,11 @@ def search_by_query(query, num_matches=5, window_size=5):
 
 if __name__=="__main__":
 
-    query = "Tell me about child abuse in Germany."
+    query = "Tell me about children's rights in Germany."
     if len(sys.argv) > 1:
         # raise ValueError("Please pass a query when calling the script.")
         query = sys.argv[1]
 
-    num_matches = 5
-    window_size = 5
     context = search_by_query(query)
 
     for i in context:
