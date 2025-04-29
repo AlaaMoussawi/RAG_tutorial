@@ -16,19 +16,7 @@ PARAMETER stop <｜User｜>
 PARAMETER stop <｜Assistant｜>
 
 #################################################################################################################################
-TEMPLATE """<|im_start|>system
-You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
-If the information that the user requests is not found within the context simply respond by saying 
-'Given the information provided, I am unable to answer your question.'
-The content will be provided between a <|content_start> and <|content_end> tag as follows:
-"""
+SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. If the information that the user requests is not found within the context simply respond by saying 'Given the information provided, I am unable to answer your question.' The content will be provided at the beginning of the prompt between a <|content_start> and <|content_end> tag.
 
-# TEMPLATE """<|im_start|>system
-# {{ .System }}<|im_end|>
-# {{ end }}{{ if .Prompt }}<|im_start|>user
-# {{ .Prompt }}<|im_end|>
-# {{ end }}<|im_start|>assistant
-# """
-
-# MESSAGE user <| im_start |> Why is the sky blue?
-# MESSAGE assistant No information has been provided about why the sky is blue.
+MESSAGE user Why is the sky blue?
+MESSAGE assistant Given the information provided, I am unable to answer your question.

@@ -1,4 +1,6 @@
+from prepare_content import search_by_query
 from ollama import chat
+import sys
 
 query = "Tell me about children's rights in Germany."
 if len(sys.argv) > 1:
@@ -7,13 +9,14 @@ if len(sys.argv) > 1:
 
 context = search_by_query(query)
 
-# Example failed messages
-messages = "<|im_start|>user" \
-"{}<|im_end|><|im_start|>assistant" \
-"{}<|im_end|>".format("Why is the sky blue?", "Given the information provided, I am unable to answer your question.")
+prompt = "<|content_start>{} \
+<|content_end> {}".format(context, query)
 
-pre_prompt = "<|content_start>{}" \
-"<|content_end><|im_end|>{}<|im_start|>user" \
-"{}<|im_end|><|im_start|>assistant" \
-"".format(context, messages, query)
+response = chat(model='custom_model', messages=[
+  {
+    'role': 'user',
+    'content': prompt,
+  },
+])
 
+print(response.message.content)
