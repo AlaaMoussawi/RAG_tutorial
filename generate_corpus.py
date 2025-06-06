@@ -35,4 +35,5 @@ def generate_corpus(search_term="human rights", num_articles=1000, output_dir="a
     
     print(f"\nCompleted! Saved {len(articles)} articles!")
 
-generate_corpus()
+if __name__ == "__main__":
+    generate_corpus()
