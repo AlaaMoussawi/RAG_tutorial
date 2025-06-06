@@ -21,7 +21,7 @@ def populate_vector_database(folder_path='all_articles'):
                 content = f.read()
             
             sentences = sent_tokenize(content)
-            embeddings = embed(model="deepseek-r1:8b", input=sentences)["embeddings"]
+            embeddings = embed(model="custom_deepseek", input=sentences)["embeddings"]
             
             for i, (embedding, content) in enumerate(zip(embeddings, sentences)):
                 new_embedding = TextEmbedding(embedding=embedding, content=content, file_name=filename, sentence_number=i+1)
