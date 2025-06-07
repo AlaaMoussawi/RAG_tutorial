@@ -2,7 +2,7 @@ from ollama import embed
 from database_connect_embeddings import get_psql_session, TextEmbedding
 
 query = "Tell me about human rights in Germany."
-query_embedding = embed(model="deepseek-r1:8b", input=query)["embeddings"][0]
+query_embedding = embed(model="custom_deepseek", input=query)["embeddings"][0]
 
 # Finding the content from our database which is most similar to the query
 def search_embeddings(query_embedding, session, limit=5):
