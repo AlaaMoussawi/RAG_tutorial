@@ -136,7 +136,7 @@ def search_by_query(query, num_matches=5, group_window_size=5):
 
 if __name__=="__main__":
 
-    query = "Sudanese"
+    query = "Tell me about children's rights in Germany."
 
     # filtered_matches = get_filtered_matches(search_results)
     
