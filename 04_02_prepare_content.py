@@ -58,7 +58,7 @@ def get_surrounding_sentences(entry_ids, file_names, group_window_size, session)
 def search_by_query(query, num_matches=5, window_size=5):
 
     session = get_psql_session()
-    query_embedding = embed(model="deepseek-r1:8b", input=query)["embeddings"][0]
+    query_embedding = embed(model="custom_deepseek", input=query)["embeddings"][0]
     search_results = search_embeddings(query_embedding, session=session, limit=num_matches * (2*window_size + 1) )
     filtered_matches = get_filtered_matches(search_results)
 
