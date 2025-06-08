@@ -4,6 +4,8 @@ from database_connect_embeddings import get_psql_session, TextEmbedding
 from pull_db_content import search_embeddings, get_surrounding_sentences
 
 # Identify how many search results till we have 5 matches that generate non-overlapping windows.
+
+# Check if a matches context window overlaps with another matches context window.
 def is_unique_to_window(existing_matches, current_match):
     
     for match in existing_matches:
