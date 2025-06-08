@@ -31,29 +31,6 @@ def get_filtered_matches(search_results):
 
     return matches
 
-# filtered_matches = get_filtered_matches(search_results)
-# Finding the content from our database which is most similar to the query
-def search_embeddings(query_embedding, session, limit=5):
-    return session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name, 
-        TextEmbedding.embedding.cosine_distance(query_embedding).label("distance") )\
-        .order_by("distance").limit(limit).all()
-
-
-
-def get_surrounding_sentences(entry_ids, file_names, group_window_size, session):
-
-    # entry_ids and filen_names must be arrays!
-    surrounding_sentences = []
-    for entry_id, file_name in zip(entry_ids, file_names):
-        surrounding_sentences.append(
-            session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name)\
-            .filter(TextEmbedding.id >= entry_id - group_window_size)\
-            .filter(TextEmbedding.id <= entry_id + group_window_size)\
-            .filter(TextEmbedding.file_name == file_name).all()
-        )
-    
-    return surrounding_sentences
-
 
 def search_by_query(query, num_matches=5, window_size=5):
 
@@ -71,6 +48,9 @@ def search_by_query(query, num_matches=5, window_size=5):
 if __name__=="__main__":
 
     query = "Tell me about children's rights in Germany."
+
+    # filtered_matches = get_filtered_matches(search_results)
+    
     if len(sys.argv) > 1:
         # raise ValueError("Please pass a query when calling the script.")
         query = sys.argv[1]
