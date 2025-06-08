@@ -17,6 +17,7 @@ query_result = search_embeddings(query_embedding=query_embedding, session=sessio
 
 def get_surrounding_sentences(entry_ids, file_names, group_window_size, session):
 
+    # entry_ids and file_names must be arrays!
     surrounding_sentences = []
     if isinstance(entry_ids, list) and isinstance(file_names, list):
         for entry_id, file_name in zip(entry_ids, file_names):
@@ -28,11 +29,6 @@ def get_surrounding_sentences(entry_ids, file_names, group_window_size, session)
             )
         
         return surrounding_sentences
-    
-    else:
-        return [session.query(TextEmbedding.id, TextEmbedding.sentence_number, TextEmbedding.content, TextEmbedding.file_name)\
-            .filter(TextEmbedding.id >= entry_ids - group_window_size)\
-            .filter(TextEmbedding.id <= entry_ids + group_window_size)\
-            .filter(TextEmbedding.file_name == file_names).all()]
+
 
 # get_surrounding_sentences(8222, 'Human_rights_in_Gabon.txt', 5)
