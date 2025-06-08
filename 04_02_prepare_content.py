@@ -126,7 +126,7 @@ def search_by_query(query, num_matches=5, group_window_size=5):
     search_results = search_embeddings(query_embedding, session=session, limit=num_matches * (2*group_window_size + 1) )
     filtered_matches = get_filtered_matches(search_results)
 
-    print(f"Number of filtered matches: {len(filtered_matches)}")
+    # print(f"Number of filtered matches: {len(filtered_matches)}")
 
     entry_ids = [i[0] for i in filtered_matches]
     file_names = [i[3] for i in filtered_matches]
