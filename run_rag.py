@@ -11,7 +11,7 @@ context = search_by_query(query)
 prompt = f"<|content_start>{context} \
 <|content_end> {query}"
 
-response = chat(model='custom_model', messages=[
+response = chat(model='custom_gemma', messages=[
   {
     'role': 'user',
     'content': prompt,
