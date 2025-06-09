@@ -2,7 +2,7 @@ import sys
 from prepare_content import search_by_query
 from ollama import chat
 
-query = "Tell me about children's rights in Germany."
+query = "Is the Dominican Republic a member of the United Nations?"
 if len(sys.argv) > 1:
     query = sys.argv[1]
 
