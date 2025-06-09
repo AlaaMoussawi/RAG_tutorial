@@ -11,6 +11,8 @@ context = search_by_query(query)
 prompt = f"<|content_start>{context} \
 <|content_end> {query}"
 
+# print(f"Prompt: {prompt}")
+
 response = chat(model='custom_gemma', messages=[
   {
     'role': 'user',
