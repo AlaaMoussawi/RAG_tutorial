@@ -1,4 +1,5 @@
 import sys
+import gc
 from database_connect_embeddings import get_psql_session, TextEmbedding
 from pull_db_content import search_embeddings, get_surrounding_sentences
 from sentence_transformers import SentenceTransformer
@@ -119,6 +120,8 @@ def search_by_query(query, num_matches=5, group_window_size=5):
     session = get_psql_session()
     model = SentenceTransformer('SFR-Embedding-Mistral', device='cpu')
     query_embedding = model.encode(query)
+    del model
+    gc.collect()
 
     search_results = search_embeddings(query_embedding, session=session, limit=num_matches * (2*group_window_size + 1) )
     filtered_matches = get_filtered_matches(search_results)
