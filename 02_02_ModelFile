@@ -1,4 +1,4 @@
-FROM deepseek-r1:8b
+FROM gemma3:12b
 
 # sets the temperature to 1 [higher is more creative, lower is more coherent]
 PARAMETER temperature 0
@@ -7,16 +7,7 @@ PARAMETER temperature 0
 PARAMETER num_ctx 4096
 PARAMETER seed 42
 
-# sets a custom system message to specify the behavior of the chat assistant
-# SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
-
-PARAMETER stop <｜start_of_turn｜>
-PARAMETER stop <｜end▁of▁turn｜>
-PARAMETER stop <｜User｜>
-PARAMETER stop <｜Assistant｜>
-
-#################################################################################################################################
-SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. If the information that the user requests is not found within the context simply respond by saying 'Given the information provided, I am unable to answer your question.' The content will be provided at the beginning of the prompt between a <|content_start> and <|content_end> tag.
+SYSTEM You are a bot which only responds to questions based on the content that you are provided with. If the information that the user requests is not found within the provided content simply respond by saying 'Given the information provided, I am unable to answer your question.' The content will be provided at the beginning of the prompt between a <|content_start> and <|content_end> tag.
 
 MESSAGE user Why is the sky blue?
 MESSAGE assistant Given the information provided, I am unable to answer your question.
