@@ -33,7 +33,7 @@ def get_filtered_matches(search_results):
 
     return matches
 
-def needs_grouping(entry_ids, file_names, index_of_interest, group_window_size):
+def group_entries(entry_ids, file_names, index_of_interest, group_window_size):
 
     # Identify if an entry with index index_of_interest needs grouping with other entries.
 
@@ -57,7 +57,7 @@ def consolidate_groupings(grouped_entries):
     # Given a list of lists with grouped entries, combine all lists that have one or more elements in common, then remove duplicates.
     # This should result in a number of lists equal to the number of matched contexts we want
 
-    # Assumes we have run the function needs_grouping on each entry
+    # Assumes we have run the function group_entries on each entry
 
     original_groups = grouped_entries[:]
     combined_groups = []
@@ -98,7 +98,7 @@ def get_surrounding_sentences(entry_ids, file_names, group_window_size, session)
 
     grouped_entries = []
     for idx, id in enumerate(entry_ids):
-        grouped_entries.append(needs_grouping(entry_ids, file_names, index_of_interest = idx, group_window_size = group_window_size))
+        grouped_entries.append(group_entries(entry_ids, file_names, index_of_interest = idx, group_window_size = group_window_size))
 
     combined_groups = consolidate_groupings(grouped_entries)
 
