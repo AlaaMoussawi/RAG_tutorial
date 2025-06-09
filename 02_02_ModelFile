@@ -10,8 +10,8 @@ PARAMETER seed 42
 # sets a custom system message to specify the behavior of the chat assistant
 # SYSTEM You are a legal assistant which only responds to questions based on the content that the user asks you to respond with. 
 
-PARAMETER stop <｜begin▁of▁sentence｜>
-PARAMETER stop <｜end▁of▁sentence｜>
+PARAMETER stop <｜start_of_turn｜>
+PARAMETER stop <｜end▁of▁turn｜>
 PARAMETER stop <｜User｜>
 PARAMETER stop <｜Assistant｜>
 
